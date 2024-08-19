@@ -12,6 +12,7 @@
     "outdated": "yarn install && yarn outdated"
   },
   "dependencies": {
+    "@tonconnect/ui-react": "^2.0.9",
     "clsx": "^2.1.1",
     "next": "14.2.5",
     "react": "^18",
