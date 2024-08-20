@@ -1,5 +1,5 @@
 {
-  "url": "http://localhost:3000",
+  "url": "https://ton-dapp-beige.vercel.app",
   "name": "TON Test",
-  "iconUrl": "http://localhost:3000/next.svg"
+  "iconUrl": "https://ton-dapp-beige.vercel.app/next.svg"
 }
