@@ -49,7 +49,7 @@ const TonConnector = () => {
       {!address && <TonConnectButton />}
 
       {address && wallet && (
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-2 w-full h-screen">
           <div className="flex flex-col">
             <span>Address</span>
             <span>{address}</span>
@@ -72,7 +72,7 @@ const TonConnector = () => {
             disconnect
           </button>
 
-          <Unity unityProvider={unityProvider} />
+          <Unity unityProvider={unityProvider} className="h-full" />
         </div>
       )}
     </>
