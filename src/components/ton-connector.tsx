@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import {
   TonConnectButton,
   useTonAddress,
@@ -8,14 +10,36 @@ import {
 } from '@tonconnect/ui-react';
 
 const TonConnector = () => {
+  const [balance, setBalance] = useState<string | null>(null);
+
   const address = useTonAddress();
   const rawAddress = useTonAddress(false);
   const wallet = useTonWallet();
   const [tonConnectUI] = useTonConnectUI();
 
+  useEffect(() => {
+    if (!address) return;
+
+    const fetchBalance = async () => {
+      try {
+        const response = await fetch(
+          `https://testnet.toncenter.com/api/v3/account?address=${address}`,
+        );
+        const data = await response.json();
+        const nanoBalance = data.balance;
+        const tonBalance = nanoBalance / 1_000_000_000;
+        setBalance(tonBalance.toFixed(4));
+      } catch (error) {
+        console.error('Error fetching balance:', error);
+      }
+    };
+
+    fetchBalance();
+  }, [address]);
+
   return (
     <div className="flex flex-col gap-4">
-      <TonConnectButton />
+      {!address && <TonConnectButton />}
 
       {address && wallet && (
         <div className="flex flex-col gap-4">
@@ -27,6 +51,10 @@ const TonConnector = () => {
             <span className="border border-gray-300 p-2">Device</span>
             <span className="border border-gray-300 p-2">
               {wallet.device.appName}
+            </span>
+            <span className="border border-gray-300 p-2">balance</span>
+            <span className="border border-gray-300 p-2">
+              {balance ? <p>{balance} TON</p> : <p>Loading...</p>}
             </span>
           </div>
           <button

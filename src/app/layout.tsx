@@ -15,8 +15,8 @@ import {
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'MJ Next App',
-  description: 'MJ Next App',
+  title: 'TON DAPP',
+  description: 'TON DAPP',
 };
 
 const RootLayout = ({
