@@ -8,6 +8,7 @@ import {
   useTonWallet,
   useTonConnectUI,
 } from '@tonconnect/ui-react';
+import { Unity, useUnityContext } from 'react-unity-webgl';
 
 const TonConnector = () => {
   const [balance, setBalance] = useState<string | null>(null);
@@ -15,6 +16,13 @@ const TonConnector = () => {
   const address = useTonAddress();
   const wallet = useTonWallet();
   const [tonConnectUI] = useTonConnectUI();
+
+  const { unityProvider } = useUnityContext({
+    loaderUrl: '/game/loader.js',
+    dataUrl: '/game/data.br',
+    frameworkUrl: '/game/framework.js.br',
+    codeUrl: '/game/wasm.br',
+  });
 
   useEffect(() => {
     if (!address) return;
@@ -63,6 +71,8 @@ const TonConnector = () => {
           >
             disconnect
           </button>
+
+          <Unity unityProvider={unityProvider} />
         </div>
       )}
     </>
