@@ -10,6 +10,8 @@ import {
 } from '@tonconnect/ui-react';
 import { Unity, useUnityContext } from 'react-unity-webgl';
 
+import { shortenAddress } from '@/lib/utils';
+
 const TonConnector = () => {
   const [balance, setBalance] = useState<string | null>(null);
 
@@ -50,29 +52,27 @@ const TonConnector = () => {
 
       {address && wallet && (
         <div className="flex flex-col gap-2 w-full h-screen">
-          <div className="flex flex-col">
-            <span>Address</span>
-            <span>{address}</span>
+          <div className="grid grid-cols-[min-content,1fr] gap-4 px-4 pt-4">
+            <span className="text-emerald-500">Address</span>
+            <span className="font-bold">{shortenAddress(address)}</span>
+            <span className="text-emerald-500">AppName</span>
+            <span className="font-bold">{wallet.device.appName}</span>
+            <span className="text-emerald-500">balance</span>
+            <span className="font-bold">
+              {balance ? <p>{balance} TON</p> : <p>Loading...</p>}
+            </span>
           </div>
 
-          <div className="flex flex-col">
-            <span>AppName</span>
-            <span>{wallet.device.appName}</span>
+          <div className="px-4 pb-2">
+            <button
+              className="border w-full h-10"
+              onClick={async () => await tonConnectUI.disconnect()}
+            >
+              disconnect
+            </button>
           </div>
 
-          <div className="flex flex-col">
-            <span>balance</span>
-            <span>{balance ? <p>{balance} TON</p> : <p>Loading...</p>}</span>
-          </div>
-
-          <button
-            className="border w-full h-10"
-            onClick={async () => await tonConnectUI.disconnect()}
-          >
-            disconnect
-          </button>
-
-          <Unity unityProvider={unityProvider} className="h-full" />
+          <Unity unityProvider={unityProvider} className="h-screen" />
         </div>
       )}
     </>
