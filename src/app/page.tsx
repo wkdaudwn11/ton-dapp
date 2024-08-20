@@ -6,7 +6,7 @@ import TonConnector from '@/components/ton-connector';
 
 const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4 overflow-hidden">
       <TonConnectUIProvider manifestUrl="https://ton-dapp-beige.vercel.app/tonconnect-manifest.json">
         <TonConnector />
       </TonConnectUIProvider>

@@ -13,7 +13,6 @@ const TonConnector = () => {
   const [balance, setBalance] = useState<string | null>(null);
 
   const address = useTonAddress();
-  const rawAddress = useTonAddress(false);
   const wallet = useTonWallet();
   const [tonConnectUI] = useTonConnectUI();
 
@@ -38,25 +37,26 @@ const TonConnector = () => {
   }, [address]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <>
       {!address && <TonConnectButton />}
 
       {address && wallet && (
-        <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-[min-content,1fr] gap-0 border border-gray-300">
-            <span className="border border-gray-300 p-2">Address</span>
-            <span className="border border-gray-300 p-2">{address}</span>
-            <span className="border border-gray-300 p-2">RawAddress</span>
-            <span className="border border-gray-300 p-2">{rawAddress}</span>
-            <span className="border border-gray-300 p-2">Device</span>
-            <span className="border border-gray-300 p-2">
-              {wallet.device.appName}
-            </span>
-            <span className="border border-gray-300 p-2">balance</span>
-            <span className="border border-gray-300 p-2">
-              {balance ? <p>{balance} TON</p> : <p>Loading...</p>}
-            </span>
+        <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col">
+            <span>Address</span>
+            <span>{address}</span>
           </div>
+
+          <div className="flex flex-col">
+            <span>AppName</span>
+            <span>{wallet.device.appName}</span>
+          </div>
+
+          <div className="flex flex-col">
+            <span>balance</span>
+            <span>{balance ? <p>{balance} TON</p> : <p>Loading...</p>}</span>
+          </div>
+
           <button
             className="border w-full h-10"
             onClick={async () => await tonConnectUI.disconnect()}
@@ -65,7 +65,7 @@ const TonConnector = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
